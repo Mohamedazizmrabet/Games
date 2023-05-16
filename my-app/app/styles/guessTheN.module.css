@@ -1,0 +1,27 @@
+#i1 {
+    /* Initial state */
+    width: 48px;
+          height: 48px;
+          font-size: 22px;
+    transition: transform 0.5s; /* Transition property and duration */
+  }
+.inputs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+  #i1:hover {
+    /* Hover state */
+    transform: perspective(800px) rotateX(180deg);
+
+  }
+.all{
+
+    @media (max-width: 767px)
+        .inputs {
+          width: 48px;
+          height: 48px;
+          font-size: 22px;
+      }
+}
