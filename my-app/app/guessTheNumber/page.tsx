@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/guessTheN.module.css';
-
+import KeyboardReact from "../../compenents/KeyBoead";
 function Page() {
   const [result, setResult] = useState<number[]>([]);
   const array = [...Array(10).keys()];
@@ -69,7 +69,7 @@ console.log(result);
 
   return (
     <div className={styles.all}>
-      <h1 className={styles.h1}>hello</h1>
+      <h1 className={styles.h1}>guess the number of 4 digits</h1>
       {result.map((e, i) => {
         return (
           <div className="" key={i}>
@@ -78,6 +78,8 @@ console.log(result);
         );
       })}
       {addInputs()}
+      <button style={{display:"none"}}></button>
+      <KeyboardReact addInputs={addInputs}/>
     </div>
   );
 }
