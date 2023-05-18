@@ -33,6 +33,12 @@ console.log(result);
     updatedInputs[index] = value;
     setInputs(updatedInputs);
   };
+  const verify=(arr:typeof inputs)=>{
+    if(arr.includes("")) return false
+    else{
+      if(arr.includes)
+    }
+  }
 
   const addInputs = () => (
     <div className={styles.inputs}>

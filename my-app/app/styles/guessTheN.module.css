@@ -12,11 +12,7 @@
     align-items: center;
     
 }
-  #i1:hover {
-    /* Hover state */
-    transform: perspective(800px) rotateX(180deg);
 
-  }
 .all{
 
     @media (max-width: 767px)
