@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/guessTheN.module.css';
 import KeyboardReact from "../../compenents/KeyBoead";
+import { type } from 'os';
 function Page() {
   const [result, setResult] = useState<number[]>([]);
   const array = [...Array(10).keys()];
@@ -36,7 +37,7 @@ console.log(result);
   const verify=(arr:typeof inputs)=>{
     if(arr.includes("")) return false
     else{
-      if(arr.includes)
+      if(arr.includes("")){}
     }
   }
 
@@ -85,7 +86,7 @@ console.log(result);
       })}
       {addInputs()}
       <button style={{display:"none"}}></button>
-      <KeyboardReact addInputs={addInputs}/>
+      <KeyboardReact handleInputChange={ handleInputChange} input={inputs} />
     </div>
   );
 }

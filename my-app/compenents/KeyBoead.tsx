@@ -2,18 +2,36 @@ import React, { useState, useRef, useEffect } from 'react';
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
 
-const App: React.FC = ({ addInputs }: any) => {
+interface KeyboardReactProps {
+  addInputs: (inputs: string) => void;
+  inputs: string;
+  setInputs: (inputs: string) => void;
+  input: string;
+  handleInputChange:any
+}
+
+const App: React.FC<KeyboardReactProps> = ({ addInputs, inputs, handleInputChange, input }: KeyboardReactProps) => {
+  console.log("ùmmm",input,handleInputChange);
+  
   const [layoutName, setLayoutName] = useState<string>('default');
-  const [input, setInput] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string>('');
 
   const keyboardRef = useRef(null);
-
+  const onUpdate=(str:string)=>{
+    for(let i=input.length;i>=0;i--){
+      console.log("i=",i);
+      
+      if(input[i]==="") handleInputChange(i,str)
+    }
+    
+  }
   const onChange = (input: string) => {
-    setInput(input);
+    setInputValue(input);
     console.log('Input changed', input);
   };
 
   const onKeyPress = (button: string) => {
+    onUpdate(button)
     console.log('Button pressed', button);
 
     if (button === '{shift}' || button === '{lock}') {
@@ -27,7 +45,7 @@ const App: React.FC = ({ addInputs }: any) => {
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target.value;
-    setInput(input);
+    setInputValue(input);
     keyboardRef.current?.setInput(input);
   };
 
@@ -53,7 +71,7 @@ const App: React.FC = ({ addInputs }: any) => {
 
   return (
     <div>
-      <input value={input} placeholder="Tap on the virtual keyboard to start" onChange={onChangeInput} />
+      <input value={inputValue} placeholder="Tap on the virtual keyboard to start" onChange={onChangeInput} />
       <Keyboard 
         keyboardRef={(r) => (keyboardRef.current = r)}
         layoutName={layoutName}
