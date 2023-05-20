@@ -57,8 +57,8 @@ const App: React.FC<KeyboardReactProps> = ({ addInputs, inputs, handleInputChang
 
   const keyboardLayouts = {
     default: [
-      '` 1 2 3 4 5 6 7 8 9 0  {bksp} {enter}',
-      '{space}',
+      '1 2 3 4 5 6 7 8 9 0  {bksp} {enter}',
+      
     ],
     shift: [
       '~ ! @ # $ % ^ & * ( ) _ + {bksp}',
@@ -71,7 +71,6 @@ const App: React.FC<KeyboardReactProps> = ({ addInputs, inputs, handleInputChang
 
   return (
     <div>
-      <input value={inputValue} placeholder="Tap on the virtual keyboard to start" onChange={onChangeInput} />
       <Keyboard 
         keyboardRef={(r) => (keyboardRef.current = r)}
         layoutName={layoutName}

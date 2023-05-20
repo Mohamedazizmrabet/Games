@@ -1,13 +1,13 @@
 "use client"
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from '../styles/guessTheN.module.css';
 import KeyboardReact from "../../compenents/KeyBoead";
-import { type } from 'os';
+
 function Page() {
   const [result, setResult] = useState<number[]>([]);
   const array = [...Array(10).keys()];
   const [inputs, setInputs] = useState<string[]>(["", "", "", ""]);
-console.log(inputs);
+  const inputRefs = useRef<HTMLInputElement[]>([]);
 
   function makeTheNumberOfFourDigits() {
     const result = [];
@@ -27,50 +27,30 @@ console.log(inputs);
     const generatedResult = makeTheNumberOfFourDigits();
     setResult(generatedResult);
   }, []);
-console.log(result);
 
   const handleInputChange = (index: number, value: string) => {
     const updatedInputs = [...inputs];
     updatedInputs[index] = value;
     setInputs(updatedInputs);
-  };
-  const verify=(arr:typeof inputs)=>{
-    if(arr.includes("")) return false
-    else{
-      if(arr.includes("")){}
+
+    if (value.length === 1 && index < inputs.length - 1) {
+      inputRefs.current[index + 1].focus();
     }
-  }
+  };
 
   const addInputs = () => (
     <div className={styles.inputs}>
-      <input
-        type="text"
-        name=""
-        id={styles.i1}
-        value={inputs[0]}
-        onChange={(event) => handleInputChange(0, event.target.value)}
-      />
-      <input
-        type="text"
-        name=""
-        id={styles.i1}
-        value={inputs[1]}
-        onChange={(event) => handleInputChange(1, event.target.value)}
-      />
-      <input
-        type="text"
-        name=""
-        id={styles.i1}
-        value={inputs[2]}
-        onChange={(event) => handleInputChange(2, event.target.value)}
-      />
-      <input
-        type="text"
-        name=""
-        id={styles.i1}
-        value={inputs[3]}
-        onChange={(event) => handleInputChange(3, event.target.value)}
-      />
+      {inputs.map((inputValue, index) => (
+        <input
+          key={index}
+          ref={(el) => (inputRefs.current[index] = el)}
+          type="text"
+          name=""
+          id={styles.i1}
+          value={inputValue}
+          onChange={(event) => handleInputChange(index, event.target.value)}
+        />
+      ))}
     </div>
   );
 
@@ -86,7 +66,7 @@ console.log(result);
       })}
       {addInputs()}
       <button style={{display:"none"}}></button>
-      <KeyboardReact handleInputChange={ handleInputChange} input={inputs} />
+      <KeyboardReact handleInputChange={handleInputChange} input={inputs} />
     </div>
   );
 }
