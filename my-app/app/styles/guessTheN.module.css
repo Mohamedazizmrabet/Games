@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Darumadrop+One&family=Roboto+Mono:ital,wght@1,500&family=Roboto:wght@500&display=swap');
-#i1 {
-    /* Initial state */
-    width: 48px;
-          height: 48px;
-          font-size: 22px;
-    transition: transform 0.5s; /* Transition property and duration */
-  }
-.inputs{
+
+.inputs {
     display: flex;
     justify-content: center;
     align-items: center;
     
+}
+.inputs input{
+  width: 48px;
+  height: 48px;
+  font-size: 22px;
+transition: transform 0.5s; /* Transition property and duration */
 }
 
 .all{

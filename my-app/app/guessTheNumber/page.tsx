@@ -1,9 +1,10 @@
 "use client"
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef,KeyboardEvent } from 'react';
 import styles from '../styles/guessTheN.module.css';
 import KeyboardReact from "../../compenents/KeyBoead";
 
 function Page() {
+  let counter=0
   const [result, setResult] = useState<number[]>([]);
   const array = [...Array(10).keys()];
   const [inputs, setInputs] = useState<string[]>(["", "", "", ""]);
@@ -37,6 +38,17 @@ function Page() {
       inputRefs.current[index + 1].focus();
     }
   };
+  const verify=(arr:typeof inputs)=>{
+    let space=arr.indexOf("")
+    console.log(space);
+    
+    if(space!==-1) {inputRefs.current[space].focus()}
+    else{
+      arr.forEach((e,i)=>{
+        
+      })
+    }
+  }
 
   const addInputs = () => (
     <div className={styles.inputs}>
@@ -46,16 +58,20 @@ function Page() {
           ref={(el) => (inputRefs.current[index] = el)}
           type="text"
           name=""
-          id={styles.i1}
+          id={counter.toString()}
           value={inputValue}
           onChange={(event) => handleInputChange(index, event.target.value)}
         />
       ))}
     </div>
   );
-
+const keyDown=(event:KeyboardEvent)=>{
+  console.log("key",typeof(event.key),event.key)
+  if(event.key==="Enter")  {verify(inputs)}
+  
+}
   return (
-    <div className={styles.all}>
+    <div className={styles.all} onKeyDown={keyDown}>
       <h1 className={styles.h1}>guess the number of 4 digits</h1>
       {result.map((e, i) => {
         return (
@@ -67,6 +83,7 @@ function Page() {
       {addInputs()}
       <button style={{display:"none"}}></button>
       <KeyboardReact handleInputChange={handleInputChange} input={inputs} />
+      
     </div>
   );
 }

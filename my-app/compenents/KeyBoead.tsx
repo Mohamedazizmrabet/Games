@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
-
+import styles from "../app/styles/keyBoard.module.css"
 interface KeyboardReactProps {
   addInputs: (inputs: string) => void;
   inputs: string;
@@ -56,21 +56,14 @@ const App: React.FC<KeyboardReactProps> = ({ addInputs, inputs, handleInputChang
   }, []);
 
   const keyboardLayouts = {
-    default: [
-      '1 2 3 4 5 6 7 8 9 0  {bksp} {enter}',
-      
-    ],
-    shift: [
-      '~ ! @ # $ % ^ & * ( ) _ + {bksp}',
-      '{tab} Q W E R T Y U I O P { } |',
-      '{lock} A S D F G H J K L : " {enter}',
-      '{shift} Z X C V B N M < > ? {shift}',
-      '{space}',
-    ],
-  };
+    default: ["1 2 3", "4 5 6", "7 8 9", "0"],
+   
+
+  theme: "hg-theme-default hg-layout-numeric numeric-theme"
+  }
 
   return (
-    <div>
+    <div className={styles.keyB}>
       <Keyboard 
         keyboardRef={(r) => (keyboardRef.current = r)}
         layoutName={layoutName}
