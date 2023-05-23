@@ -9,7 +9,7 @@ function Page() {
   const array = [...Array(10).keys()];
   const [inputs, setInputs] = useState<string[]>(["", "", "", ""]);
   const inputRefs = useRef<HTMLInputElement[]>([]);
-
+  const [divCount,setDivCount]=useState<number>(1)
   function makeTheNumberOfFourDigits() {
     const result = [];
     while (result.length !== 4) {
@@ -20,6 +20,9 @@ function Page() {
     return result;
   }
 
+  const appendDiv = () => {
+    setDivCount(prevCount => prevCount + 1);
+  };
   function unique(number: number, result: number[]) {
     return !result.includes(number);
   }
@@ -38,17 +41,31 @@ function Page() {
       inputRefs.current[index + 1].focus();
     }
   };
-  const verify=(arr:typeof inputs)=>{
-    let space=arr.indexOf("")
-    console.log(space);
-    
-    if(space!==-1) {inputRefs.current[space].focus()}
-    else{
-      arr.forEach((e,i)=>{
+  const verify = (arr: typeof inputs) => {
+    let space = arr.indexOf("");
+  
+    if (space !== -1) {
+      inputRefs.current[space].focus();
+    } else {
+      arr.forEach((e, i) => {
+        if (result[i] === parseInt(inputRefs.current[i].value)) {
+          inputRefs.current[i].style.backgroundColor = "green";
+          inputRefs.current[i].style.color = "black";
+        }
+        else if(result.includes(parseInt(inputRefs.current[i].value))){
+          inputRefs.current[i].style.backgroundColor = "yellow";
+          inputRefs.current[i].style.color = "black";
+        }
+        else{
+          inputRefs.current[i].style.backgroundColor = "red";
+          inputRefs.current[i].style.color = "black";
+        }
+        return addInputs()
         
-      })
+      });
     }
-  }
+  };
+  
 
   const addInputs = () => (
     <div className={styles.inputs}>
@@ -58,7 +75,6 @@ function Page() {
           ref={(el) => (inputRefs.current[index] = el)}
           type="text"
           name=""
-          id={counter.toString()}
           value={inputValue}
           onChange={(event) => handleInputChange(index, event.target.value)}
         />
@@ -80,7 +96,11 @@ const keyDown=(event:KeyboardEvent)=>{
           </div>
         );
       })}
-      {addInputs()}
+        <div>
+        {Array.from({ length: divCount }, (_, index) => (
+          <div key={index}>{addInputs()}</div>
+        ))}
+      </div>
       <button style={{display:"none"}}></button>
       <KeyboardReact handleInputChange={handleInputChange} input={inputs} />
       
