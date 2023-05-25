@@ -11,7 +11,6 @@ interface KeyboardReactProps {
 }
 
 const App: React.FC<KeyboardReactProps> = ({ addInputs, inputs, handleInputChange, input }: KeyboardReactProps) => {
-  console.log("ùmmm",input,handleInputChange);
   
   const [layoutName, setLayoutName] = useState<string>('default');
   const [inputValue, setInputValue] = useState<string>('');
