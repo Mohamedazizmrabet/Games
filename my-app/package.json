@@ -16,7 +16,9 @@
     "next": "13.4.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-simple-keyboard": "^3.5.73"
+    "react-simple-keyboard": "^3.5.73",
+    "sweetalert2": "^11.7.5",
+    "sweetalert2-react-content": "^5.0.7"
   },
   "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
   "main": "next.config.js",

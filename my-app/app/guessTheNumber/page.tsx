@@ -34,13 +34,21 @@ function Page() {
     const updatedInputs = { ...inputs };
     updatedInputs[counter][index] = value;
     setInputs(updatedInputs);
+    console.log(value.length === 1 && index < inputs[counter].length - 1);
+    console.log("index",index,"value",value );
+    
 
     if (value.length === 1 && index < inputs[counter].length - 1) {
-      inputRefs.current[counter][index + 1].focus();
+      setTimeout(() => {
+        inputRefs.current[counter][index + 1].focus();
+      }, 0);
     }
+    
   };
 
   const verify = (arr: typeof inputs) => {
+    console.log("mmmmmmmmmmmmm",arr);
+    
     let space = arr[counter].indexOf('');
 
     if (space !== -1) {
@@ -63,28 +71,34 @@ function Page() {
       setCounter((prevCounter) => prevCounter + 1);
 
       // Create a new input array for the next round
-      const newInputs = { ...inputs, [counter]: ['', '', '', ''] };
+      const newInputs = { ...arr, [counter + 1]: ['', '', '', ''] };
       setInputs(newInputs);
 
       // Initialize refs for the new input section
-      inputRefs.current[counter] = [];
+      inputRefs.current[counter + 1] = [];
     }
   };
 
-  const addInputs = () => (
-    <div className={styles.inputs}>
-      {inputs[counter].map((inputValue, index) => (
-        <input
-          key={index}
-          ref={(el) => (inputRefs.current[counter][index] = el)}
-          type="text"
-          name=""
-          value={inputValue}
-          onChange={(event) => handleInputChange(index, event.target.value)}
-        />
-      ))}
-    </div>
-  );
+  const addInputs = (inputCounter: number) => {
+    if (!inputRefs.current[inputCounter]) {
+      inputRefs.current[inputCounter] = [];
+    }
+
+    return (
+      <div className={styles.inputs}>
+        {inputs[inputCounter].map((inputValue, index) => (
+          <input
+            key={index}
+            ref={(el) => (inputRefs.current[inputCounter][index] = el)}
+            type="text"
+            name=""
+            value={inputValue}
+            onChange={(event) => handleInputChange(index, event.target.value)}
+          />
+        ))}
+      </div>
+    );
+  };
 
   const keyDown = (event: KeyboardEvent) => {
     if (event.key === 'Enter') {
@@ -102,11 +116,11 @@ function Page() {
       ))}
       <div>
         {Array.from({ length: counter }, (_, index) => (
-          <div key={index}>{addInputs()}</div>
+          <div key={index}>{addInputs(index + 1)}</div>
         ))}
       </div>
       <button style={{ display: 'none' }}></button>
-      <KeyboardReact handleInputChange={handleInputChange} input={inputs[counter]} />
+      <KeyboardReact handleInputChange={handleInputChange} input={inputs[counter]} theAllObj={inputs}counter={counter} verify={verify} />
     </div>
   );
 }
