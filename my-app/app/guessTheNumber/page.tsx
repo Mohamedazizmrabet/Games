@@ -9,7 +9,7 @@ function Page() {
 
   const array = [...Array(10).keys()];
   const [inputs, setInputs] = useState<{ [key: number]: string[] }>({ [counter]: ['', '', '', ''] });
-  const inputRefs = useRef<Array<HTMLInputElement[]>>([[]]);
+  const inputRefs = useRef<Array<HTMLInputElement[]>>([]);
 
   function makeTheNumberOfFourDigits() {
     const result = [];
@@ -59,14 +59,11 @@ function Page() {
         }
       });
 
-      // Increment counter
       setCounter((prevCounter) => prevCounter + 1);
 
-      // Create a new input array for the next round
       const newInputs = { ...inputs, [counter]: ['', '', '', ''] };
       setInputs(newInputs);
 
-      // Initialize refs for the new input section
       inputRefs.current[counter] = [];
     }
   };
